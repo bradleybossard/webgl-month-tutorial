@@ -9,11 +9,36 @@ const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
 const vShaderSource =
 `
 void main() {
+  gl_PointSize = 20.0;
   gl_Position = vec4(0, 0, 0, 1);
  }
- `;
+`;
 
-gl.shaderSource(vertexShader, vShaderSource);
-gl.compileShader(vertexShader);
+const fShaderSource = `
+void main() {
+  gl_FragColor = vec4(1, 0, 0, 1);
+}
+`;
 
-console.log(gl.getShaderInfoLog(vertexShader));
+function compileShader(shader, source) {
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  const log = gl.getShaderInfoLog(shader);
+
+  if (log) {
+    throw new Error(log);
+  }
+
+  console.log(gl.getShaderInfoLog(vertexShader));
+}
+
+compileShader(vertexShader, vShaderSource);
+compileShader(fragmentShader, fShaderSource);
+
+gl.attachShader(program, vertexShader);
+gl.attachShader(program, fragmentShader);
+
+gl.linkProgram(program);
+gl.useProgram(program);
+
+gl.drawArrays(gl.POINTS, 0, 1);
