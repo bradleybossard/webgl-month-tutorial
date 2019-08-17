@@ -46,6 +46,7 @@ gl.useProgram(program);
 const positionPointer = gl.getAttribLocation(program, 'position');
 
 //const positionData = new Float32Array([1.0, 0.0]);
+/*
 const positionData = new Float32Array([
      -1.0, // point 1 x
      -1.0, // point 1 y
@@ -59,6 +60,19 @@ const positionData = new Float32Array([
      1.0, // point 4 x
      -1.0, // point 4 y
 ]);
+*/
+
+const points = [];
+
+for (let i = 0; i < canvas.width; i++) {
+  // translate x from 0 to width to -1 to 1
+  const x =  i / canvas.width * 2 - 1;
+  const y = Math.cos(x * Math.PI);
+  points.push(x, y);
+}
+
+const positionData = new Float32Array(points);
+
 const positionBuffer = gl.createBuffer(gl.ARRAY_BUFFER);
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 gl.bufferData(gl.ARRAY_BUFFER, positionData, gl.STATIC_DRAW);
