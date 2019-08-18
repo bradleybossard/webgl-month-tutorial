@@ -60,11 +60,16 @@ gl.uniform2fv(resolutionUniformLocation, [canvas.width, canvas.height]);
 const colorUniformLocation = gl.getUniformLocation(program, 'color');
 gl.uniform4fv(colorUniformLocation, [200, 0, 0, 255]);
 
-const lines = [];
 const triangles = [
-  0, 0, // v1 (x, y)
-  canvas.width / 2, canvas.height, // v2 (x, y)
-  canvas.width, 0, // v3 (x, y)
+  // first triangle
+  0, 150, // top left
+  150, 150, // top right
+  0, 0, // bottom left
+
+  // second triangle
+  0, 0, // bottom left
+  150, 150, // top right
+  150, 0, // bottom right
 ];
 
 const positionData = new Float32Array(triangles);
