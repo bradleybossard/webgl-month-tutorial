@@ -24,8 +24,13 @@ void main() {
 `;
 
 const fShaderSource = `
+precision mediump float;
+
+uniform vec4 color;
+
 void main() {
-  gl_FragColor = vec4(1, 0, 0, 1);
+  //gl_FragColor = vec4(1, 0, 0, 1);
+  gl_FragColor = color / 255.0;
 }
 `;
 
@@ -57,6 +62,8 @@ const resolutionUniformLocation = gl.getUniformLocation(program, 'resolution');
 // gl.uniform1f(widthUniformLocation, canvas.width);
 gl.uniform2fv(resolutionUniformLocation, [canvas.width, canvas.height]);
 
+const colorUniformLocation = gl.getUniformLocation(program, 'color');
+gl.uniform4fv(colorUniformLocation, [200, 0, 0, 255]);
 
 //const points = [];
 const lines = [];
